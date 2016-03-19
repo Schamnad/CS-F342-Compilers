@@ -1,0 +1,383 @@
+0<program> ===> <otherFunctions> <mainFunction>
+NA NA
+NA NA
+
+1<mainFunction> ===> TK_MAIN <stmts> TK_END
+NA NA
+NA NA
+DELETE TK_END
+
+2<otherFunctions> ===> <function> <otherFunctions>
+NA NA
+NA NA
+
+3<otherFunctions> ===> eps
+PULLUP eps
+
+4<function> ===> TK_FUNID <input_par> <output_par> TK_SEM <stmts> TK_END
+PULLUP TK_FUNID
+NA NA
+NA NA
+DELETE TK_SEM
+NA NA
+DELETE TK_END
+
+5<input_par> ===>TK_INPUT TK_PARAMETER TK_LIST TK_SQL <parameter_list> TK_SQR
+DELETE TK_INPUT
+DELETE TK_PARAMETER
+DELETE TK_LIST
+DELETE TK_SQL
+NA NA
+DELETE TK_SQR
+
+6<output_par> ===> TK_OUTPUT TK_PARAMETER TK_LIST TK_SQL <parameter_list> TK_SQR
+DELETE TK_OUTPUT
+DELETE TK_PARAMETER
+DELETE TK_LIST
+DELETE TK_SQL
+NA NA
+DELETE TK_SQR
+
+7<output_par> ===> eps
+PULLUP eps
+
+8<parameter_list> ===> <dataType> TK_ID <remaining_list>
+NA NA
+NA NA
+NA NA
+
+9<dataType> ===> <primitiveDatatype>
+PULLUP <primitiveDatatype>
+
+10<dataType> ===> <constructedDatatype>
+PULLUP <constructedDatatype>
+
+11<primitiveDatatype> ===> TK_INT
+PULLUP TK_INT
+
+12<primitiveDatatype> ===> TK_REAL
+PULLUP TK_REAL
+
+13<constructedDatatype> ===> TK_RECORD TK_RECORDID
+DELETE TK_RECORD
+PULLUP TK_RECORDID
+
+14<remaining_list> ===> TK_COMMA <parameter_list>
+DELETE TK_COMMA
+PULLUP <parameter_list>
+
+15<remaining_list> ===> eps
+PULLUP eps
+
+16<stmts> ===> <typeDefinitions> <declarations> <otherStmts> <returnStmt>
+NA NA
+NA NA
+NA NA
+NA NA
+
+17<typeDefinitions> ===> <typeDefinition> <typeDefinitions>
+NA NA
+NA NA
+
+18<typeDefinitions> ===> eps
+PULLUP eps
+
+19<typeDefinition> ===> TK_RECORD TK_RECORDID <fieldDefinitions> TK_ENDRECORD TK_SEM
+DELETE TK_RECORD
+PULLUP TK_RECORDID
+NA NA
+DELETE TK_ENDRECORD
+DELETE TK_SEM
+
+20<fieldDefinitions> ===> <fieldDefinition> <fieldDefinition> <moreFields>
+NA NA
+NA NA
+NA NA
+
+21<fieldDefinition> ===> TK_TYPE <primitiveDatatype> TK_COLON TK_FIELDID TK_SEM
+DELETE TK_TYPE
+NA NA
+DELETE TK_COLON
+NA NA
+DELETE TK_SEM
+
+22<moreFields> ===> <fieldDefinition> <moreFields>
+NA NA
+NA NA
+
+23<moreFields> ===> eps
+PULLUP eps
+
+24<declarations> ===> <declaration> <declarations>
+NA NA
+NA NA
+
+25<declarations> ===> eps
+PULLUP eps
+
+26<declaration> ===> TK_TYPE <dataType> TK_COLON TK_ID <global_or_not> TK_SEM
+DELETE TK_TYPE
+NA NA
+DELETE TK_COLON
+NA NA
+NA NA
+DELETE TK_SEM
+
+27<global_or_not> ===> TK_COLON TK_GLOBAL
+DELETE TK_COLON
+PULLUP TK_GLOBAL
+
+28<global_or_not> ===> eps
+PULLUP eps
+
+29<otherStmts> ===> <stmt> <otherStmts>
+NA NA
+NA NA
+
+30<otherStmts> ===> eps
+PULLUP eps
+
+31<stmt> ===> <assignmentStmt>
+PULLUP <assignmentStmt>
+
+32<stmt> ===> <iterativeStmt>
+PULLUP <iterativeStmt>
+
+33<stmt> ===> <conditioNA NAlStmt>
+PULLUP <conditioNA NAlStmt>
+
+34<stmt> ===> <ioStmt>
+PULLUP <ioStmt>
+
+35<stmt> ===> <funCallStmt>
+PULLUP <funCallStmt>
+
+36<assignmentStmt> ===> <SingleOrRecId> TK_ASSIGNOP <arithmeticExpression> TK_SEM
+NA NA
+PULLUP TK_ASSIGNOP
+NA NA
+DELETE TK_SEM
+
+37<singleOrRecId>===>TK_ID <singleOrRecIdPrime>
+NA NA
+NA NA
+
+38<singleOrRecIdPrime> ===> eps 
+PULLUP eps
+
+39<singleOrRecIdPrime> ===> TK_DOT TK_FIELDID 
+DELETE TK_DOT
+PULLUP TK_FIELDID
+
+40<funCallStmt> ===> <outputParameters> TK_CALL TK_FUNID TK_WITH TK_PARAMETERS <inputParameters> TK_SEM
+NA NA
+DELETE TK_CALL
+PULLUP TK_FUNID
+DELETE TK_WITH
+DELETE TK_PARAMETERS
+NA NA
+DELETE TK_SEM
+
+41<outputParameters> ==> TK_SQL <idList> TK_SQR TK_ASSIGNOP
+DELETE TK_SQL
+NA NA
+DELETE TK_SQR
+PULLUP TK_ASSIGNOP
+
+42<outputParameters> ==> eps
+PULLUP eps
+ 
+43<inputParameters> ===> TK_SQL <idList> TK_SQR
+DELETE TK_SQL
+PULLUP <idList>
+DELETE TK_SQR
+
+44<iterativeStmt> ===> TK_WHILE TK_OP <booleanExpression> TK_CL <stmt> <otherStmts> TK_ENDWHILE
+NA NA
+DELETE TK_OP
+NA NA
+DELETE TK_CL
+NA NA
+NA NA
+DELETE TK_ENDWHILE
+
+45<conditioNA NAlStmt> ===> TK_IF TK_OP <booleanExpression> TK_CL TK_THEN <stmt><otherStmts> <elsePart>
+NA NA
+DELETE TK_OP
+NA NA
+DELETE TK_CL
+NA NA
+NA NA
+NA NA
+NA NA
+
+46<elsePart> ===> TK_ELSE <stmt><otherStmts> TK_ENDIF
+PULLUP TK_ELSE
+NA NA
+NA NA
+DELETE TK_ENDIF
+
+47<elsePart> ===> TK_ENDIF
+PULLUP TK_ENDIF
+
+48<ioStmt> ===> TK_READ TK_OP <singleOrRecId> TK_CL TK_SEM
+PULLUP TK_READ
+DELETE TK_OP
+NA NA
+DELETE TK_CL
+DELETE TK_SEM
+
+
+49<ioStmt> ===> TK_WRITE TK_OP <allVar> TK_CL TK_SEM
+PULLUP TK_WRITE
+DELETE TK_OP
+NA NA
+DELETE TK_CL
+DELETE TK_SEM
+
+50<allVar> ===> <var>
+PULLUP <var>
+
+51<allVar> ===> TK_RECORDID TK_DOT TK_FIELDID
+PULLUP TK_RECORDID
+DELETE TK_DOT
+NA NA
+
+52<arithmeticExpression> ===> <term> <expPrime>
+NA NA
+NA NA
+
+53<expPrime> ===> <lowPrecedenceOperators> <term> <expPrime>
+PULLUP <lowPrecedenceOperators>
+NA NA
+NA NA
+
+54<expPrime> ===> eps
+PULLUP eps
+
+55<term>===> <factor> <termPrime>
+NA NA
+NA NA
+
+56<termPrime> ===> <highPrecedenceOperators><factor> <termPrime>
+PULLUP <highPrecedenceOperators>
+NA NA
+NA NA
+
+57<termPrime> ===> eps
+PULLUP eps
+
+58<factor> ===> TK_OP <arithmeticExpression> TK_CL
+DELETE TK_OP
+PULLUP <arithmeticExpression>
+DELETE TK_CL
+
+59<factor> ===> <all>
+PULLUP <all>
+
+60<highPrecedenceOperator> ===> TK_MUL
+PULLUP TK_MUL
+
+61<highPrecedenceOperator> ===> TK_DIV
+PULLUP TK_DIV
+
+62<lowPrecedenceOperators> ===> TK_PLUS
+PULLUP TK_PLUS
+
+63<lowPrecedenceOperators> ===> TK_MINUS
+PULLUP TK_MINUS
+
+64<all> ===> TK_ID
+PULLUP TK_ID
+
+65<all> ===> TK_NUM
+PULLUP TK_NUM
+
+66<all> ===> TK_RNUM
+PULLUP TK_RNUM
+
+67<all> ===> TK_RECORDID <temp>
+PULLUP TK_RECORDID
+NA NA
+
+68<temp> ===> eps
+PULLUP eps
+
+69<temp> ===> TK_DOT TK_FIELD
+DELETE TK_DOT
+PULLUP TK_FIELD
+
+70<booleanExpression> ===> TK_OP <booleanExpression> TK_CL <logicalOp> TK_OP <booleanExpression> TK_CL
+DELETE TK_OP
+NA NA
+DELETE TK_CL
+PULLUP <logicalOp>
+DELETE TK_OP
+NA NA
+DELETE TK_CL
+
+71<booleanExpression> ===> <var> <relatioNA NAlOp> <var>
+NA NA
+PULLUP <relatioNA NAlOp>
+NA NA
+
+72<booleanExpression> ===> TK_NOT <booleanExpression>
+PULLUP TK_NOT
+NA NA
+
+73<var> ===> TK_ID
+PULLUP TK_ID
+
+74<var> ===> TK_NUM
+PULLUP TK_NUM
+
+75<var> ===> TK_RNUM
+PULLUP TK_RNUM
+
+76<logicalOp> ===> TK_AND
+PULLUP TK_AND
+
+77<logicalOp> ===> TK_OR
+PULLUP TK_OR
+
+78<relatioNA NAlOp> ===> TK_LT
+PULLUP TK_LT
+
+79<relatioNA NAlOp> ===> TK_LE
+PULLUP TK_LE
+
+80<relatioNA NAlOp> ===> TK_EQ
+PULLUP TK_EQ
+
+81<relatioNA NAlOp> ===> TK_GT
+PULLUP TK_GT
+
+82<relatioNA NAlOp> ===> TK_GE
+PULLUP TK_GE
+
+83<relatioNA NAlOp> ===> TK_NE
+PULLUP TK_NE
+
+84<returnStmt> ===> TK_RETURN <optioNA NAlReturn> TK_SEM
+NA NA
+NA NA
+DELETE TK_SEM
+
+85<optioNA NAlReturn> ===> TK_SQL <idList> TK_SQR
+DELETE TK_SQL
+PULLUP <idList>
+DELETE TK_SQR
+
+86<optioNA NAlReturn> ===> eps
+PULLUP eps
+
+87<idList> ===> TK_ID <more_ids>
+NA NA
+NA NA
+
+88<more_ids> ===> TK_COMMA <idList>
+DELETE TK_COMMA
+PULLUP <idList>
+
+89<more_ids> ===> eps
+PULLUP eps

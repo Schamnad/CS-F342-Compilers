@@ -1,0 +1,24 @@
+%1234 1234
+_sumN  input parameter list [int d5cc34]  
+output parameter list[real d3];
+	type int : b5b567;
+	b5b567 <--- 1;
+	d3 <--- 0.00;
+	
+	while ( b5b567 <= d5cc34)
+		read(c3bd);
+		d3 <--- d3 + c3bd;
+		b5b567 <--- (b5b567 + 1)*(b5b567 + 1)*2 ; 
+	endwhile %1234
+	
+	return [d3];%1234
+end%1234
+%1234
+_main%1234
+	type int :b3;
+	type real :c4bd56;
+	b3 <--- 7;
+	[c4bd56]<--- call _sumN with parameters [b3];
+	write(c4bd56);
+	return;	
+end
